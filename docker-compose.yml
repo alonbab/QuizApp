@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+  web:
+    container_name: quiz_app
+    environment:
+      - NODE_ENV=prod
+    image  alonbab/quiz_app:latest
+    ports:
+      -"80:3000"
