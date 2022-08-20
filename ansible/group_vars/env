@@ -1,15 +1,14 @@
-server_name: 
-env: 
+server_name: quiz_server 
+env: dev
 
-vpc_name: 
-network: 
-subnet_cidr: 
-env_name: 
-aws_region: 
-subnet: 
+vpc_name: my-app-vpc
+network: 10.1.0.0/16
+subnet_cidr: 10.1.0.0/24
+aws_region: eu-central-1
+subnet: eu-central-1a
 
-keypair: 
+keypair: es-colman
 
-aws_centos_ami: 
-Server_type: 
-server_volume_size:  
+aws_centos_ami: ami-08b6d44b4f6f7b279
+server_type: t2.micro
+server_volume_size: 8
