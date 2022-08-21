@@ -38,8 +38,4 @@ jobs:
           script_stop: true
           script: |
             cd /opt/app
-            sudo docker stop quiz_app
-            sudo docker rm quiz_app
-            sudo docker rmi ${{ secrets.DOCKER_USER }}/quiz_app
-            sudo docker pull ${{ secrets.DOCKER_USER }}/quiz_app
-            sudo docker-compose up -d --force-recreate
+            sudo docker-compose pull && sudo docker-compose up -d --force-recreate

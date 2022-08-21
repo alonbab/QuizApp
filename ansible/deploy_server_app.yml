@@ -145,11 +145,7 @@
       yum: 
         name: 
           - epel-release
-        state: present
-
-    - name: Install base packages
-      yum:
-        name:
+          - yum-utils
           - git
         state: present
 
