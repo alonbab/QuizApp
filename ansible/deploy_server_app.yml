@@ -4,7 +4,9 @@
   gather_facts: False
   vars_files:
     - group_vars/env
-
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  
   tasks:
   - name: create VPC
     ec2_vpc_net:
@@ -97,7 +99,7 @@
     ec2:
       image: "{{ aws_centos_ami }}"
       wait: yes
-      instance_type: "{{ Server_type }}"
+      instance_type: "{{ server_type }}"
       region: "{{ aws_region }}"
       group_id: "{{ sg.group_id }}"
       vpc_subnet_id: "{{ subnet.subnet.id }}"
@@ -116,16 +118,16 @@
         Environment: "{{ env }}"
       wait_timeout: 300
       assign_public_ip: yes
-    register: server_ec2
+    register: server
   
-  - debug: var=server_ec2.tagged_instances[0].public_ip
+  - debug: var=server.tagged_instances[0].public_ip
 
   - name: Add server public IP to application host group
-    add_host: hostname={{ server_ec2.tagged_instances[0].public_ip }} groups=app
+    add_host: hostname={{ server.tagged_instances[0].public_ip }} groups=app
 
   - name: Wait for SSH to start using external IP
     wait_for:
-      host: "{{ server_ec2.tagged_instances[0].public_ip }}"
+      host: "{{ server.tagged_instances[0].public_ip }}"
       port: 22
       timeout: 300
 
@@ -139,10 +141,16 @@
     - group_vars/env
     - group_vars/docker.env
   tasks:
-    - name: install base packages
+    - name: install epel packages
       yum: 
         name: 
           - epel-release
+        state: present
+
+    - name: Install base packages
+      yum:
+        name:
+          - git
         state: present
 
     - name: Add signing key
