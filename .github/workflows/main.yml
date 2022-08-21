@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: deploy app
-        uses: appleboy/ssh-action@v0.1.4
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
@@ -37,8 +37,5 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script_stop: true
           script: |
-            sudo docker stop quiz_app
-            sudo docker rm quiz_app
-            sudo docker rmi ${{ secrets.DOCKER_USER }}/quiz_app
-            sudo docker pull ${{ secrets.DOCKER_USER }}/quiz_app
-            sudo docker run --name quiz_app -d -p 80:3000 ${{ secrets.DOCKER_USER }}/quiz_app
+            cd /usr/app
+            sudo docker-compose pull && sudo docker-compose up -d --force-recreate
