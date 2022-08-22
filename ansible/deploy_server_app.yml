@@ -203,8 +203,5 @@
         - docker build . --tag {{ docker_user }}/quiz_app:latest
         - docker push {{ docker_user }}/quiz_app:latest
 
-    - name: Removing app docker container if exists
-      shell: "docker rm --force quiz_app"
-
     - name: Start app docker container
       shell: "docker run -d -p 80:3000 -t --restart always --name quiz_app {{ docker_user }}/quiz_app:latest"
