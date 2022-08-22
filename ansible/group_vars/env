@@ -1,5 +1,5 @@
 server_name: quiz_server 
-env: dev
+env: prod
 
 vpc_name: my-app-vpc
 network: 10.1.0.0/16
