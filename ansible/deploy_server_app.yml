@@ -173,11 +173,11 @@
         state: latest
         update_cache: true
 
-    - name: Restart Docker service
-      service:
-        name: "docker"
+    - name: Start Docker
+      ansible.builtin.service:
+        name: 'docker'
         enabled: true
-        state: restarted
+        state: started
 
     - name: Copy ssh private key
       copy:

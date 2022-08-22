@@ -19,7 +19,7 @@ jobs:
         password: ${{ secrets.DOCKER_TOKEN }}
         
     - name: Build the Docker image
-      run: docker build . --tag ${{ secrets.DOCKER_USER }}/quiz_app:latest
+      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USER }}/quiz_app:latest
 
     - name: Push to Docker Hub
       run: docker push ${{ secrets.DOCKER_USER }}/quiz_app:latest
